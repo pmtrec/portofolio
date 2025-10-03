@@ -1,27 +1,32 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Moon, Sun } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../state';
+import LanguageSwitcher from '../atoms/LanguageSwitcher';
+import AdminButton from '../atoms/AdminButton';
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useTranslation();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('accueil');
   const isHome = location.pathname === '/';
 
   const navItems = useMemo(() => isHome ? [
-    { id: 'accueil', label: 'Accueil', href: '#hero' },
-    { id: 'apropos', label: 'À propos', href: '#about' },
-    { id: 'competences', label: 'Compétences', href: '#skills' },
-    { id: 'projets', label: 'Projets', href: '#projects' },
+    { id: 'accueil', label: t('nav.home'), href: '#hero' },
+    { id: 'apropos', label: t('nav.about'), href: '#about' },
+    { id: 'competences', label: t('nav.skills'), href: '#skills' },
+    { id: 'projets', label: t('nav.projects'), href: '#projects' },
     { id: 'experience', label: 'Expérience', href: '#experience' },
-    { id: 'contact', label: 'Contact', href: '#contact' },
+    { id: 'contact', label: t('nav.contact'), href: '#contact' },
   ] : [
-    { id: 'home', label: 'Accueil', href: '/' },
+    { id: 'home', label: t('nav.home'), href: '/' },
     { id: 'dashboard', label: 'Dashboard', href: '/dashboard' },
+    { id: 'certifications', label: 'Certifications', href: '/certifications' },
     { id: 'upload', label: 'Upload', href: '/upload' },
-  ], [isHome]);
+  ], [isHome, t]);
 
   useEffect(() => {
     if (!isHome) return;
@@ -84,28 +89,33 @@ const Header = () => {
               )
             ))}
           </nav>
+<div className="flex items-center space-x-4">
+  {/* Language Switcher */}
+  <LanguageSwitcher />
 
-          <div className="flex items-center space-x-4">
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            >
-              {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-            </button>
+  {/* Admin Button */}
+  <AdminButton />
 
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? (
-                <X className="h-6 w-6 text-gray-700 dark:text-gray-300" />
-              ) : (
-                <Menu className="h-6 w-6 text-gray-700 dark:text-gray-300" />
-              )}
-            </button>
-          </div>
+  {/* Theme Toggle */}
+  <button
+    onClick={toggleTheme}
+    className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+  >
+    {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+  </button>
+
+  {/* Mobile Menu Button */}
+  <button
+    className="md:hidden"
+    onClick={() => setIsMenuOpen(!isMenuOpen)}
+  >
+    {isMenuOpen ? (
+      <X className="h-6 w-6 text-gray-700 dark:text-gray-300" />
+    ) : (
+      <Menu className="h-6 w-6 text-gray-700 dark:text-gray-300" />
+    )}
+  </button>
+</div>
         </div>
 
         {/* Mobile Navigation */}

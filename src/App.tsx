@@ -4,6 +4,7 @@ import { ThemeProvider } from './state';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Upload from './pages/Upload';
+import CertificationsPage from './pages/Certifications';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/upload" element={<Upload />} />
+          <Route path="/certifications" element={<CertificationsPage />} />
         </Routes>
       </Router>
     </ThemeProvider>

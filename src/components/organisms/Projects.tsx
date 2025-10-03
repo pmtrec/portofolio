@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github, Filter, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'framer-motion';
@@ -21,9 +21,18 @@ interface Project {
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('tous');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [customProjects, setCustomProjects] = useState<Project[]>([]);
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  // Load custom projects from localStorage
+  useEffect(() => {
+    const storedProjects = localStorage.getItem('customProjects');
+    if (storedProjects) {
+      setCustomProjects(JSON.parse(storedProjects));
+    }
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -99,7 +108,7 @@ const Projects = () => {
     }
   };
 
-  const projects = [
+  const allProjects = [
     {
       id: 1,
       title: 'E-commerce Platform',
@@ -179,6 +188,9 @@ const Projects = () => {
       stats: { messages: '100k+', accuracy: '95%', languages: '5' }
     }
   ];
+
+  // Combine hardcoded and custom projects
+  const projects = [...allProjects, ...customProjects];
 
   const filters = [
     { id: 'tous', label: 'Tous les projets', count: projects.length },

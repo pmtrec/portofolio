@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
+  const { t } = useTranslation();
+
   const scrollToAbout = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -20,11 +23,11 @@ const Hero = () => {
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
       {/* Background Animation */}
-      <div className="absolute inset-0">
+      {/* <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
         <div className="absolute top-10 right-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-      </div>
+      </div> */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="space-y-8 py-[50px]">
@@ -43,14 +46,14 @@ const Hero = () => {
           {/* Main Content */}
           <div className="space-y-4">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white">
-              Bonjour, je suis{' '}
+              {t('hero.greeting')}{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {fullName.slice(0, textIndex)}
               </span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto animate-fadeIn">
-              Développeur Full Stack passionné par la création d'expériences web innovantes et performantes
+              {t('hero.subtitle')}
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 text-lg text-gray-500">
@@ -72,13 +75,13 @@ const Hero = () => {
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg animate-pulse"
             >
-              Me contacter
+              {t('hero.contact')}
             </button>
             <button
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
               className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transform hover:scale-105 transition-all duration-300 animate-pulse"
             >
-              Voir mes projets
+              {t('hero.projects')}
             </button>
           </div>
 
@@ -89,14 +92,14 @@ const Hero = () => {
               download="CV_Papa_Malick_Teuw_FR.pdf"
               className="px-6 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
             >
-              Télécharger CV (FR)
+              {t('hero.downloadCVFR')}
             </a>
             <a
               href="/uploads/CV-EN.pdf"
               download="CV_Papa_Malick_Teuw_EN.pdf"
               className="px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
             >
-              Download CV (EN)
+              {t('hero.downloadCVEN')}
             </a>
           </div>
 
